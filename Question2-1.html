@@ -1,0 +1,87 @@
+<div class="main">
+    <div class="input-section">
+        <input type="number" id="inputNumber" name="inputNumber" onkeyup="myFunction()" value="">
+    </div>
+    <div class="check-option">
+        <select id="selectOption" onchange="myFunction()">
+            <option value="isPrime" selected>isPrime</option>
+            <option value="isFibonacci">isFibonacci</option>
+        </select>
+    </div>
+    <div class="showresult">
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const myFunction = () => {
+
+            const checkOption = document.getElementById("selectOption").value
+            let value = Math.round(document.getElementById("inputNumber").value);
+            if (value < 0) {
+                value = 1;
+                document.getElementById("inputNumber").value = value;
+            }
+            console.log(value);
+
+            if (checkOption === "isPrime") {
+                const getVal = isPrime(value);
+                document.getElementById("result").innerText = getVal;
+            } else {
+                const getVal = isFibonacci(value);
+                document.getElementById("result").innerText = getVal;
+            }
+
+            if (value === 0) {
+
+                document.getElementById("result").innerText = "";
+            }
+
+        }
+
+        const isPrime = (num) => {
+            for (let i = 2, s = Math.sqrt(num); i <= s; i++)
+                if (num % i === 0) return false;
+            return true;
+        }
+        const isFibonacci = (query, count = 1, last = 0) => {
+            if (count < query) {
+                return isFibonacci(query, count + last, count);
+            };
+            if (count === query) {
+                return true;
+            }
+            return false;
+        };
+
+
+    </script>
+
+    <style>
+        @media only screen and (max-width: 600px) {
+            body {
+                background-color: lightblue;
+                overflow-x: scroll
+            }
+        }
+
+        .main {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+        }
+
+        .input-section {
+            width: 200px;
+            ;
+        }
+
+        .check-option {
+            min-width: 100px;
+        }
+
+        .showresult {
+            width: 300px;
+            ;
+        }
+    </style>
